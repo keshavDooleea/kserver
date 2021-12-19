@@ -1,16 +1,13 @@
-import express, { Router } from "express";
+import { BaseController } from "./base.controller";
 import { EmailController } from "./email.controller";
 
-export class ApiController {
-  private router: Router;
-
+export class ApiController extends BaseController {
   constructor() {
-    this.router = express.Router();
+    super();
     this.defineEndpoints();
   }
 
-  getRouter = () => this.router;
-
+  // add every endpoint
   private defineEndpoints = () => {
     this.router.use("/emails", new EmailController().getRouter());
   };

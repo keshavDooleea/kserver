@@ -1,18 +1,16 @@
-import express, { Request, Response, Router } from "express";
+import { Request, Response } from "express";
 import { EmailService } from "../services/email.service";
+import { BaseController } from "./base.controller";
 
-export class EmailController {
-  private router: Router;
+export class EmailController extends BaseController {
   private emailService: EmailService;
 
   constructor() {
-    this.router = express.Router();
-    this.emailService = new EmailService();
+    super();
 
+    this.emailService = new EmailService();
     this.setEndpoints();
   }
-
-  getRouter = (): Router => this.router;
 
   private setEndpoints = (): void => {
     this.router.get("/", async (request: Request, response: Response) => {
