@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { EmailController } from "./controllers/email.controller";
 import baseRKDRouter from "./controllers/rkd.controller";
-import { incomingRequestMiddleware } from "./middlewares/incoming-request.middleware";
+import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware";
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
 
 // definitions
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
 // api
-app.use(incomingRequestMiddleware);
+app.use(requestLoggerMiddleware);
 app.use("/", baseRKDRouter);
 app.use("/api/emails", new EmailController().getRouter());
 app.use(errorNotFoundMiddleware);
