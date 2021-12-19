@@ -1,9 +1,14 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
+import { BaseController } from "./base.controller";
 
-const baseRKDRouter = express.Router();
+export class RKDController extends BaseController {
+  constructor() {
+    super();
+  }
 
-baseRKDRouter.get("/", async (request: Request, response: Response) => {
-  response.status(200).send("This is the server of Reetesh Dooleea");
-});
-
-export default baseRKDRouter;
+  protected setEndpoints(): void {
+    this.router.get("/", async (request: Request, response: Response) => {
+      response.status(200).send("This is the server of Reetesh Dooleea");
+    });
+  }
+}

@@ -4,11 +4,10 @@ import { EmailController } from "./email.controller";
 export class ApiController extends BaseController {
   constructor() {
     super();
-    this.defineEndpoints();
   }
 
-  // add every endpoint
-  private defineEndpoints = () => {
+  // sets every endpoint
+  protected setEndpoints = (): void => {
     this.router.use("/emails", new EmailController().getRouter());
   };
 }

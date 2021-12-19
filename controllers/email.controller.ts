@@ -7,12 +7,10 @@ export class EmailController extends BaseController {
 
   constructor() {
     super();
-
     this.emailService = new EmailService();
-    this.setEndpoints();
   }
 
-  private setEndpoints = (): void => {
+  protected setEndpoints = (): void => {
     this.router.get("/", async (request: Request, response: Response) => {
       const email: string = await this.emailService.sendEmail();
       response.status(200).json({ yo: email });
