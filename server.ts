@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
-import { EmailController } from "./controllers/email.controller";
 import baseRKDRouter from "./controllers/rkd.controller";
 import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware";
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
+import { ApiController } from "./controllers/api.controller";
 
 // definitions
 const port = 8080;
@@ -16,7 +16,7 @@ app.use(express.json({ limit: "10mb" }));
 // api
 app.use(requestLoggerMiddleware);
 app.use("/", baseRKDRouter);
-app.use("/api/emails", new EmailController().getRouter());
+app.use("/api", new ApiController().getRouter()); // custom endpoints: /api/*
 app.use(errorNotFoundMiddleware);
 
 app.listen(port, () => console.log(`RKD's server is listening on port ${port}`));
