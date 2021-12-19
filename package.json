@@ -1,0 +1,25 @@
+{
+  "name": "kserver",
+  "version": "1.0.0",
+  "description": "Reetesh Keshav Dooleea own server",
+  "main": "server.ts",
+  "scripts": {},
+  "keywords": [
+    "reetesh",
+    "keshav",
+    "dooleea",
+    "server"
+  ],
+  "author": "Reetesh Keshav Dooleea",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.0",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2"
+  }
+}
