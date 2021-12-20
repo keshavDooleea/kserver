@@ -1,3 +1,3 @@
 # kserver
 
-My own server accessible on https://kdserver.vercel.app/
+My dedicated own server accessible on https://kdserver.vercel.app/
