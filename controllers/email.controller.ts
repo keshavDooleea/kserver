@@ -26,6 +26,8 @@ export class EmailController extends AbstractController {
         request.session.visitedHosts = [];
       }
 
+      console.log("current hosts:", request.session.visitedHosts);
+
       if (request.session.visitedHosts.includes(host)) {
         response.status(HTTP_CODE.CREATED).send("Request already made and email already sent");
         return;

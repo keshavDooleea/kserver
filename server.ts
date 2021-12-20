@@ -6,6 +6,7 @@ import { BaseController } from "./controllers/base.controller";
 import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware";
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
 import { ApiController } from "./controllers/api.controller";
+import { sessionOptions } from "./lib/express-session.lib";
 
 dotenv.config();
 
@@ -16,17 +17,7 @@ const app = express();
 // middleware configurations
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
-app.use(
-  session({
-    secret: process.env.COOKIE_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      httpOnly: true,
-      maxAge: 20000,
-    },
-  })
-);
+app.use(session(sessionOptions));
 
 // api
 app.use(requestLoggerMiddleware);
