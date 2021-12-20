@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { IEmail } from "../intefaces/email.interface";
 import { HTTP_CODE } from "../lib/http-code.lib";
 import { EmailService } from "../services/email.service";
 import { AbstractController } from "./abstract.controller";
@@ -21,6 +22,7 @@ export class EmailController extends AbstractController {
   setEndpoints = (): void => {
     this.router.get("/me", async (request: Request, response: Response) => {
       const { host } = request.headers;
+      const ipAddress = request.headers["x-forwarded-for"] || request.connection.remoteAddress;
 
       if (!request.session.visitedHosts) {
         request.session.visitedHosts = [];
@@ -34,7 +36,11 @@ export class EmailController extends AbstractController {
       }
 
       request.session.visitedHosts.push(host);
-      const email: string = await this.emailService.sendEmail();
+      const emailData: IEmail = {
+        ip: ipAddress[0],
+        host,
+      };
+      const email: string = await this.emailService.sendEmail(emailData);
       response.status(HTTP_CODE.OK).json({ yo: request.session.visitedHosts, email });
     });
   };

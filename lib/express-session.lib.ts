@@ -1,4 +1,7 @@
+import * as dotenv from "dotenv";
 import session from "express-session";
+
+dotenv.config();
 
 export const sessionOptions: session.SessionOptions = {
   secret: process.env.COOKIE_SECRET,

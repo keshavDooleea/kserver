@@ -1,6 +1,8 @@
+import { IEmail } from "../intefaces/email.interface";
+
 export class EmailService {
-  sendEmail = async (): Promise<string> => {
-    console.log("sending email");
+  sendEmail = async (emailData: IEmail): Promise<string> => {
+    console.log("sending email", emailData);
     return "heyy";
   };
 }
