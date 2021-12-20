@@ -20,9 +20,9 @@ export class EmailController extends AbstractController {
   }
 
   setEndpoints = (): void => {
-    this.router.get("/me", async (request: Request, response: Response) => {
+    this.router.post("/visitor", async (request: Request, response: Response) => {
       const { host } = request.headers;
-      const ipAddress = request.headers["x-forwarded-for"] || request.connection.remoteAddress;
+      const ipAddress = request.headers["x-forwarded-for"] || request.socket.remoteAddress;
 
       if (!request.session.visitedHosts) {
         request.session.visitedHosts = [];
