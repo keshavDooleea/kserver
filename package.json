@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Reetesh Keshav Dooleea own server",
   "main": "server.ts",
-  "scripts": {},
+  "scripts": {
+    "start": "npx tsc -w"
+  },
   "keywords": [
     "reetesh",
     "keshav",

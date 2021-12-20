@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { BaseController } from "./controllers/base.controller";
+import { BaseController } from "./controllers/rkd.controller";
 import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware";
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
 import { ApiController } from "./controllers/api.controller";
