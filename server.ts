@@ -1,9 +1,12 @@
-import express from "express";
+import * as dotenv from "dotenv";
 import cors from "cors";
+import express from "express";
 import { BaseController } from "./controllers/base.controller";
 import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware";
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
 import { ApiController } from "./controllers/api.controller";
+
+dotenv.config();
 
 // definitions
 const port = process.env.PORT || 8080;
