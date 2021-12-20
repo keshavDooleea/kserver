@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
+import session from "express-session";
 import { BaseController } from "./controllers/base.controller";
 import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware";
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
@@ -15,6 +16,17 @@ const app = express();
 // middleware configurations
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+      maxAge: 20000,
+    },
+  })
+);
 
 // api
 app.use(requestLoggerMiddleware);

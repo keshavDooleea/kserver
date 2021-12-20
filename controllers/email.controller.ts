@@ -1,32 +1,39 @@
 import { Request, Response } from "express";
-import rateLimit, { RateLimit } from "express-rate-limit";
 import { HTTP_CODE } from "../lib/http-code.lib";
 import { EmailService } from "../services/email.service";
 import { AbstractController } from "./abstract.controller";
 
+declare module "express-session" {
+  interface Session {
+    visitedHosts: string[]; // hods every url which user has visited
+  }
+}
+
 export class EmailController extends AbstractController {
   private emailService: EmailService;
-  private apiLimiter: RateLimit;
 
   constructor() {
     super();
     this.emailService = new EmailService();
-
-    this.apiLimiter = rateLimit({
-      windowMs: parseInt(process.env.EMAIL_RATE_LIMIT),
-      max: parseInt(process.env.EMAIL_MAX_NB),
-      handler: (request: Request, response: Response) => {
-        response.status(HTTP_CODE.CREATED).send("Request already made and email already sent");
-      },
-    });
-
     this.setEndpoints();
   }
 
   setEndpoints = (): void => {
-    this.router.get("/me", this.apiLimiter, async (request: Request, response: Response) => {
+    this.router.get("/me", async (request: Request, response: Response) => {
+      const { host } = request.headers;
+
+      if (!request.session.visitedHosts) {
+        request.session.visitedHosts = [];
+      }
+
+      if (request.session.visitedHosts.includes(host)) {
+        response.status(HTTP_CODE.CREATED).send("Request already made and email already sent");
+        return;
+      }
+
+      request.session.visitedHosts.push(host);
       const email: string = await this.emailService.sendEmail();
-      response.status(HTTP_CODE.OK).json({ yo: email });
+      response.status(HTTP_CODE.OK).json({ yo: request.session.visitedHosts, email });
     });
   };
 }
