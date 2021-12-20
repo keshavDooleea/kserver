@@ -1,13 +1,14 @@
-import { BaseController } from "./base.controller";
+import { AbstractController } from "./abstract.controller";
 import { EmailController } from "./email.controller";
 
-export class ApiController extends BaseController {
+export class ApiController extends AbstractController {
   constructor() {
     super();
+    this.setEndpoints();
   }
 
   // sets every endpoint
-  protected setEndpoints = (): void => {
+  setEndpoints = (): void => {
     this.router.use("/emails", new EmailController().getRouter());
   };
 }

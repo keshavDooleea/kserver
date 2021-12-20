@@ -1,13 +1,15 @@
-import express, { Router } from "express";
+import { Request, Response } from "express";
+import { AbstractController } from "./abstract.controller";
 
-export abstract class BaseController {
-  protected router: Router;
-
+export class BaseController extends AbstractController {
   constructor() {
-    this.router = express.Router();
+    super();
+    this.setEndpoints();
   }
 
-  protected abstract setEndpoints(): void;
-
-  getRouter = () => this.router;
+  setEndpoints(): void {
+    this.router.get("/", async (request: Request, response: Response) => {
+      response.status(200).send("This is the server of Reetesh Dooleea");
+    });
+  }
 }
