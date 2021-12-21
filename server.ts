@@ -19,16 +19,8 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(session(sessionOptions));
-app.options("*", cors(corsOptions));
 
 // api
-// app.use((request: Request, response: Response, next: NextFunction) => {
-//   response.header("Access-Control-Allow-Origin", "*");
-//   response.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-//   response.header("Access-Control-Allow-Headers", "Content-Type");
-//   next();
-// });
-
 app.use(requestLoggerMiddleware);
 app.use("/", new BaseController().getRouter()); // base endpoint: /
 app.use("/api", new ApiController().getRouter()); // custom endpoints: /api/*

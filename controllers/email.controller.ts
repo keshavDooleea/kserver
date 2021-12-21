@@ -23,11 +23,13 @@ export class EmailController extends AbstractController {
     this.router.post("/visitor", async (request: Request, response: Response) => {
       const { host } = request.headers;
       const ipAddress = request.headers["x-forwarded-for"] || request.socket.remoteAddress;
+      const { body } = request;
 
       if (!request.session.visitedHosts) {
         request.session.visitedHosts = [];
       }
 
+      console.log("body", body);
       console.log("current hosts:", request.session.visitedHosts);
 
       if (request.session.visitedHosts.includes(host)) {
