@@ -7,6 +7,7 @@ import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
 import { ApiController } from "./controllers/api.controller";
 import { sessionOptions } from "./lib/express-session.lib";
+import { headersMiddleware } from "./middlewares/headers.middleware";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(session(sessionOptions));
 
 // api
+app.use(headersMiddleware);
 app.use(requestLoggerMiddleware);
 app.use("/", new BaseController().getRouter()); // base endpoint: /
 app.use("/api", new ApiController().getRouter()); // custom endpoints: /api/*
