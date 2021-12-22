@@ -3,7 +3,6 @@ import { IEmail } from "../intefaces/email.interface";
 import { HTTP_CODE } from "../lib/http-code.lib";
 import { EmailService } from "../services/email.service";
 import { AbstractController } from "./abstract.controller";
-import cors from "cors";
 
 declare module "express-session" {
   interface Session {
@@ -21,19 +20,7 @@ export class EmailController extends AbstractController {
   }
 
   setEndpoints = (): void => {
-    this.router.use(
-      cors({
-        origin: "*",
-        methods: ["GET", "POST"],
-      })
-    );
-    this.router.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      next();
-    });
-
-    this.router.post("/", async (request: Request, response: Response) => {
+    this.router.post("/visitor", async (request: Request, response: Response) => {
       const { host } = request.headers;
       const ipAddress = request.headers["x-forwarded-for"] || request.socket.remoteAddress;
       const { body } = request;

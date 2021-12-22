@@ -1,3 +1,4 @@
+import cors from "cors";
 import * as dotenv from "dotenv";
 import express from "express";
 import session from "express-session";
@@ -14,8 +15,19 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 // middleware configurations
-
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
+  })
+);
 app.use(express.json({ limit: "10mb" }));
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(session(sessionOptions));
 
 // api
