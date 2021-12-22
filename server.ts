@@ -1,4 +1,4 @@
-import cors from "cors";
+import micro from "micro-cors";
 import * as dotenv from "dotenv";
 import express from "express";
 import session from "express-session";
@@ -16,10 +16,21 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 // middleware configurations
-app.use(cors(corsOptions));
+function MyApi(req, res, next) {
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  // handling other requests normally after this
+  console.log("YO");
+  next();
+}
+
+const cors = micro();
+
+app.use(cors(MyApi));
 app.use(express.json({ limit: "10mb" }));
 app.use(session(sessionOptions));
-app.use(headersMiddleware);
+// app.use(headersMiddleware);
 
 // api
 app.use(requestLoggerMiddleware);
