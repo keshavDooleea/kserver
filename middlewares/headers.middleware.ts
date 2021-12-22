@@ -23,3 +23,9 @@ export const headersMiddleware = (request: Request, response: Response, next: Ne
   //   response.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 };
+
+// {
+//     res.header("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   }

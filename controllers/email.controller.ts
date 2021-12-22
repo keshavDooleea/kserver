@@ -1,8 +1,6 @@
-import cors from "cors";
 import { Request, Response } from "express";
 import { IEmail } from "../intefaces/email.interface";
 import { HTTP_CODE } from "../lib/http-code.lib";
-import { corsOptions } from "../middlewares/headers.middleware";
 import { EmailService } from "../services/email.service";
 import { AbstractController } from "./abstract.controller";
 
@@ -22,7 +20,7 @@ export class EmailController extends AbstractController {
   }
 
   setEndpoints = (): void => {
-    this.router.post("/visitor", cors(corsOptions), async (request: Request, response: Response) => {
+    this.router.post("/visitor", async (request: Request, response: Response) => {
       const { host } = request.headers;
       const ipAddress = request.headers["x-forwarded-for"] || request.socket.remoteAddress;
       const { body } = request;
