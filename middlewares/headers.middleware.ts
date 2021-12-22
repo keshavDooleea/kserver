@@ -21,6 +21,13 @@ export const headersMiddleware = (request: Request, response: Response, next: Ne
   //   response.header("Access-Control-Allow-Origin", origin);
   //   response.header("Access-Control-Allow-Methods", "GET, POST");
   //   response.header("Access-Control-Allow-Headers", "Content-Type");
+
+  if (request.method === "OPTIONS") {
+    return response.status(200).send("ok");
+  }
+
+  // handle incoming request as usual
+  console.log("nextin");
   next();
 };
 

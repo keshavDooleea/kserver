@@ -7,7 +7,7 @@ import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
 import { ApiController } from "./controllers/api.controller";
 import { sessionOptions } from "./lib/express-session.lib";
-import { corsOptions } from "./middlewares/headers.middleware";
+import { corsOptions, headersMiddleware } from "./middlewares/headers.middleware";
 
 dotenv.config();
 
@@ -19,6 +19,7 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(session(sessionOptions));
+app.use(headersMiddleware);
 
 // api
 app.use(requestLoggerMiddleware);
