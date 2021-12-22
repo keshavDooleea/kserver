@@ -23,7 +23,7 @@ export const headersMiddleware = (request: Request, response: Response, next: Ne
   //   response.header("Access-Control-Allow-Headers", "Content-Type");
 
   if (request.method === "OPTIONS") {
-    return response.sendStatus(200).send("ok");
+    return response.status(200).send("ok");
   }
 
   // handle incoming request as usual
