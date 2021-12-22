@@ -33,7 +33,8 @@ export class EmailController extends AbstractController {
       console.log("current hosts:", request.session.visitedHosts);
 
       if (request.session.visitedHosts.includes(host)) {
-        response.status(HTTP_CODE.CREATED).send("Request already made and email already sent");
+        response.send("Request already made and email already sent");
+        // response.status(HTTP_CODE.CREATED).send("Request already made and email already sent");
         return;
       }
 
@@ -43,7 +44,8 @@ export class EmailController extends AbstractController {
         host,
       };
       const email: string = await this.emailService.sendEmail(emailData);
-      response.status(HTTP_CODE.OK).json({ yo: request.session.visitedHosts, email });
+      response.json({ yo: request.session.visitedHosts, email });
+      // response.status(HTTP_CODE.OK).json({ yo: request.session.visitedHosts, email });
     });
   };
 }
