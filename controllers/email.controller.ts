@@ -29,7 +29,7 @@ export class EmailController extends AbstractController {
         request.session.visitedHosts = [];
       }
 
-      console.log("body", body);
+      console.log("body:", body);
       console.log("current hosts:", request.session.visitedHosts);
 
       if (request.session.visitedHosts.includes(host)) {
