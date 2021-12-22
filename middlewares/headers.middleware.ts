@@ -8,7 +8,8 @@ export const corsOptions: cors.CorsOptions = {
   origin: "*",
   credentials: true,
   optionsSuccessStatus: HTTP_CODE.OK,
-  methods: "GET, POST",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
 };
 
 export const headersMiddleware = (request: Request, response: Response, next: NextFunction) => {

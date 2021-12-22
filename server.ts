@@ -7,6 +7,7 @@ import { requestLoggerMiddleware } from "./middlewares/request-logger.middleware
 import { errorNotFoundMiddleware } from "./middlewares/error.middleware";
 import { ApiController } from "./controllers/api.controller";
 import { sessionOptions } from "./lib/express-session.lib";
+import { corsOptions } from "./middlewares/headers.middleware";
 
 dotenv.config();
 
@@ -15,13 +16,7 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 // middleware configurations
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
-  })
-);
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
