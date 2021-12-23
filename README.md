@@ -1,3 +1,3 @@
 # kserver
 
-My dedicated own server accessible on https://kdserver.vercel.app/
+My dedicated own server accessible on https://rkdserver.herokuapp.com
